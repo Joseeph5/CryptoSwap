@@ -37,11 +37,11 @@ contract JosephToken{
         require(senderBalance >= _amount,"ERC20: transfer amount exceeds balance");
 
         unchecked {
-            balances[msg.sender] = senderBalance - _amount;
+            balances[_from] = senderBalance - _amount;
         }
         balances[_to] += _amount;
 
-        emit Transfer(msg.sender,_to,_amount);
+        emit Transfer(_from,_to,_amount);
 
         return true;
     }
