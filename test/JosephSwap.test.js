@@ -16,27 +16,41 @@ contract('JosephSwap', (accounts) => {
     });
 
     it('tarnsfer tokens to swap contract 🎉', async () => {
-      await token.transfer(swap.address, '1000000');
+      await token.transfer(swap.address, web3.utils.toWei('1000000', 'Ether'));
       const swapBalance = await token.balanceOf(swap.address);
-      assert.equal(swapBalance.toString(), '1000000');
+      assert.equal(swapBalance.toString(), web3.utils.toWei('1000000', 'Ether'));
     });
 
-    it('buy tokens from JosephSwap for a fixed price', async () => {
+    it('buy tokens from JosephSwap for a fixed price 🎉', async () => {
       const result = await swap.buyToken({
         from: accounts[1],
-        value: 1,
+        value: web3.utils.toWei('1', 'Ether'),
       });
-      // Check buyer token balance after purchase
+      // Check buyer token balance after the purchase
       const buyerBalance = await token.balanceOf(accounts[1]);
-      assert.equal(buyerBalance.toNumber(), 100);
+      assert.equal(buyerBalance.toString(), web3.utils.toWei('100', 'Ether'));
 
-      // Check JosephSwap balance after purchase
+      // Check JosephSwap balance after the purchase
       const swapBalance = await token.balanceOf(swap.address);
-      assert.equal(swapBalance.toNumber(), 999900);
+      assert.equal(swapBalance.toString(), web3.utils.toWei('999900', 'Ether'));
 
       const ethSwapBalance = await web3.eth.getBalance(swap.address);
-      assert.equal(ethSwapBalance.toString(), 1);
-      console.log('result ', result.logs[0].args);
+      assert.equal(ethSwapBalance.toString(), web3.utils.toWei('1', 'Ether'));
+    });
+
+    it('sell tokens to JosephSwap for a fixed price 🎉', async () => {
+      // seller must approve tokens before the sale process
+      await token.approve(swap.address, web3.utils.toWei('50', 'Ether'), {
+        from: accounts[1],
+      });
+      // seller sells tokens
+      const result = await swap.sellToken(web3.utils.toWei('50', 'Ether'), {
+        from: accounts[1],
+      });
+
+      // Check seller token balance after the sale process
+      const sellerBalance = await token.balanceOf(accounts[1]);
+      assert.equal(sellerBalance.toString(), web3.utils.toWei('50', 'Ether'));
     });
   });
 });

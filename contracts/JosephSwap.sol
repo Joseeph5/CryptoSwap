@@ -42,5 +42,21 @@ contract JosephSwap {
         emit TokensPurchased(msg.sender, address(token), tokenAmount, rate);
     }
 
-    
+    function sellToken(uint _amount) public payable {   
+    // User can't sell more tokens than they have
+    require(token.balanceOf(msg.sender) >= _amount);
+
+    // Calculate the amount of Ether to redeem
+    uint etherAmount = _amount / rate;
+
+    // Require that JosephSwap has enough Ether
+    require(address(this).balance >= etherAmount);
+
+    // Perform sale
+    token.transferFrom(msg.sender, address(this), _amount);
+    payable(msg.sender).transfer(etherAmount);
+
+    // Emit an event
+    emit TokensSold(msg.sender, address(token), _amount, rate);
+  }
 }

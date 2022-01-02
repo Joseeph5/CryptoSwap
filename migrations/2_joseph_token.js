@@ -3,7 +3,7 @@ const JosephSwap = artifacts.require('./JosephSwap');
 
 module.exports = async (deployer) => {
   // Deploy Token
-  await deployer.deploy(JosephToken, 1000000);
+  await deployer.deploy(JosephToken, '1000000000000000000000000');
   const token = await JosephToken.deployed();
 
   // Deploy JosephSwap
