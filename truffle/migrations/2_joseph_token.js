@@ -1,4 +1,4 @@
-const JosephToken = artifacts.require('./JosephToken');
+const JosephToken = artifacts.require('../JosephToken');
 const JosephSwap = artifacts.require('./JosephSwap');
 
 module.exports = async (deployer) => {
