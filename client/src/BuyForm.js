@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import tokenLogo from './assets/token-logo.png';
 import ethLogo from './assets/eth-logo.png';
 
-function BuyForm({ ethBalance, tokenBalance }) {
+function BuyForm({ ethBalance, tokenBalance, buyToken }) {
+  const [etherAmount, setEtherAmount] = useState('');
   return (
     <form
       className='mb-3'
       onSubmit={(event) => {
         event.preventDefault();
-        // let etherAmount;
-        // etherAmount = this.input.value.toString();
-        // etherAmount = window.web3.utils.toWei(etherAmount, 'Ether');
-        // this.props.buyTokens(etherAmount);
+
+        let etherAmountInWei = window.web3.utils.toWei(etherAmount.toString(), 'Ether');
+        buyToken(etherAmountInWei);
       }}>
       <div>
         <label className='float-left'>
@@ -22,15 +22,10 @@ function BuyForm({ ethBalance, tokenBalance }) {
       <div className='input-group mb-4'>
         <input
           type='text'
-          //   onChange={(event) => {
-          //     const etherAmount = this.input.value.toString();
-          //     this.setState({
-          //       output: etherAmount * 100,
-          //     });
-          //   }}
-          //   ref={(input) => {
-          //     this.input = input;
-          //   }}
+          onChange={(e) => {
+            const etherAmount = e.target.value;
+            setEtherAmount(etherAmount * 100);
+          }}
           className='form-control form-control-lg'
           placeholder='0'
           required
@@ -53,12 +48,17 @@ function BuyForm({ ethBalance, tokenBalance }) {
           type='text'
           className='form-control form-control-lg'
           placeholder='0'
-          value='value'
+          value={etherAmount}
           disabled
         />
         <div className='input-group-append'>
           <div className='input-group-text'>
-            <img style={{ borderRadius: '50px' }} src={tokenLogo} height='32' alt='' />
+            <img
+              style={{ borderRadius: '50px', backgroundColor: '#2B354E', padding: '3px' }}
+              src={tokenLogo}
+              height='32'
+              alt=''
+            />
             &nbsp; JOT
           </div>
         </div>

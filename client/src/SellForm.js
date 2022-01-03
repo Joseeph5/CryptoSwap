@@ -1,26 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import tokenLogo from './assets/token-logo.png';
 import ethLogo from './assets/eth-logo.png';
 
-function SellForm() {
+function SellForm({ ethBalance, tokenBalance }) {
+  const [tokenAmount, setTokenAmount] = useState('');
   return (
     <form
       className='mb-3'
-      onSubmit={(event) => {
-        event.preventDefault();
-        // let etherAmount;
-        // etherAmount = this.input.value.toString();
-        // etherAmount = window.web3.utils.toWei(etherAmount, 'Ether');
-        // this.props.sellTokens(etherAmount);
+      onSubmit={(e) => {
+        e.preventDefault();
+
+        let tokenAmountInWei = window.web3.utils.toWei(tokenAmount.toString(), 'Ether');
+        console.log(tokenAmountInWei);
+        // sellTokens(etherAmount);
       }}>
       <div>
         <label className='float-left'>
           <b>Input</b>
         </label>
-        <span className='float-right text-muted'>
-          Balance:
-          {/* {window.web3.utils.fromWei(this.props.tokenBalance, 'Ether')} */}
-        </span>
+        <span className='float-right text-muted'>Balance: {tokenBalance}</span>
       </div>
       <div className='input-group mb-4'>
         <input
@@ -28,6 +26,10 @@ function SellForm() {
           className='form-control form-control-lg'
           placeholder='0'
           required
+          onChange={(e) => {
+            const tokenAmount = e.target.value;
+            setTokenAmount(tokenAmount / 100);
+          }}
         />
         <div className='input-group-append'>
           <div className='input-group-text'>
@@ -40,16 +42,14 @@ function SellForm() {
         <label className='float-left'>
           <b>Output</b>
         </label>
-        <span className='float-right text-muted'>
-          Balance:
-          {/* {window.web3.utils.fromWei(this.props.ethBalance, 'Ether')} */}
-        </span>
+        <span className='float-right text-muted'>Balance: {ethBalance}</span>
       </div>
       <div className='input-group mb-2'>
         <input
           type='text'
           className='form-control form-control-lg'
           placeholder='0'
+          value={tokenAmount}
           disabled
         />
         <div className='input-group-append'>
@@ -61,7 +61,7 @@ function SellForm() {
       </div>
       <div className='mb-5'>
         <span className='float-left text-muted'>Exchange Rate</span>
-        <span className='float-right text-muted'>100 DApp = 1 ETH</span>
+        <span className='float-right text-muted'>100 JOT = 1 ETH</span>
       </div>
       <button type='submit' className='btn btn-primary btn-block btn-lg'>
         SWAP!

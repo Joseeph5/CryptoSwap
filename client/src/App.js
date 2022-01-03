@@ -16,6 +16,7 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   let web3 = new Web3(Web3.givenProvider || 'http://localhost:7545');
+  window.web3 = web3;
 
   const loadBlockchainData = async () => {
     // load Accounts
@@ -60,6 +61,11 @@ function App() {
     setLoading(false);
   };
 
+  const buyToken = async (etherAmount) => {
+    console.log(etherAmount);
+    console.log(account);
+    // swap.eth.methods.buyToken().send({ value: etherAmount, from: account});
+  };
   useEffect(() => {
     loadBlockchainData();
     // eslint-disable-next-line
@@ -80,6 +86,7 @@ function App() {
               tokenBalance={tokenBalance}
               account={account}
               loading={loading}
+              buyToken={buyToken}
             />
           </main>
         </div>
