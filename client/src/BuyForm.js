@@ -2,7 +2,7 @@ import React from 'react';
 import tokenLogo from './assets/token-logo.png';
 import ethLogo from './assets/eth-logo.png';
 
-function BuyForm() {
+function BuyForm({ ethBalance, tokenBalance }) {
   return (
     <form
       className='mb-3'
@@ -17,10 +17,7 @@ function BuyForm() {
         <label className='float-left'>
           <b>Input</b>
         </label>
-        <span className='float-right text-muted'>
-          Balance:
-          {/* {window.web3.utils.fromWei(this.props.ethBalance, 'Ether')} */}
-        </span>
+        <span className='float-right text-muted'>Balance: {ethBalance}</span>
       </div>
       <div className='input-group mb-4'>
         <input
@@ -49,10 +46,7 @@ function BuyForm() {
         <label className='float-left'>
           <b>Output</b>
         </label>
-        <span className='float-right text-muted'>
-          Balance:
-          {/* {window.web3.utils.fromWei(this.props.tokenBalance, 'Ether')} */}
-        </span>
+        <span className='float-right text-muted'>Balance: {tokenBalance}</span>
       </div>
       <div className='input-group mb-2'>
         <input

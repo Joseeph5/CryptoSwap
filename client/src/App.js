@@ -10,23 +10,22 @@ import Swap from './contracts/JosephSwap.json';
 function App() {
   const [account, setAccount] = useState('');
   const [ethBalance, setEthBalance] = useState('');
+  const [tokenBalance, setTokenBalance] = useState('');
+  const [token, setToken] = useState(null);
+  const [swap, setSwap] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const web3 = new Web3('http://localhost:7545');
+  let web3 = new Web3(Web3.givenProvider || 'http://localhost:7545');
 
-  const loadWeb3 = async () => {
-    const accounts = await web3.eth.getAccounts();
-    // console.log(accounts[0]);
+  const loadBlockchainData = async () => {
+    // load Accounts
+    const accounts = await web3.eth.requestAccounts();
     setAccount(accounts[0]);
 
     let ethBalance = await web3.eth.getBalance(accounts[0]);
-    ethBalance = await web3.utils.fromWei(ethBalance, 'ether');
-    // console.log(ethBalance);
+    ethBalance = web3.utils.fromWei(ethBalance, 'ether');
     setEthBalance(ethBalance);
-  };
 
-  const loadToken = async () => {};
-
-  const loadBlockchainData = async () => {
     // load Token
     const tokenABI = Token.abi;
     const networkId = await web3.eth.net.getId();
@@ -38,7 +37,13 @@ function App() {
       return;
     }
     const token = new web3.eth.Contract(tokenABI, tokenData.address);
-    console.log('Token: ', token);
+    // console.log('Token: ', token);
+    setToken(token);
+
+    // console.log(account);
+    let tokenBalance = await token.methods.balanceOf(accounts[0]).call();
+    tokenBalance = web3.utils.fromWei(tokenBalance, 'ether');
+    setTokenBalance(tokenBalance);
 
     // load swap
     const swapABI = Swap.abi;
@@ -50,13 +55,16 @@ function App() {
       return;
     }
     const swap = new web3.eth.Contract(swapABI, swapData.address);
-    console.log('Swap: ', swap);
+    setSwap(swap);
+
+    setLoading(false);
   };
 
   useEffect(() => {
-    loadWeb3();
     loadBlockchainData();
-  });
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <div>
       <NavBar account={account} />
@@ -66,10 +74,13 @@ function App() {
             role='main'
             className='col-lg-12 ml-auto mr-auto'
             style={{ maxWidth: '600px' }}>
-            <div className='content mr-auto ml-auto'>
-              <Main />
-              Your account is: {account}
-            </div>
+            <Main
+              token={token}
+              ethBalance={ethBalance}
+              tokenBalance={tokenBalance}
+              account={account}
+              loading={loading}
+            />
           </main>
         </div>
       </div>
