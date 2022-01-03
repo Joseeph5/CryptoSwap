@@ -64,7 +64,7 @@ function BuyForm() {
         />
         <div className='input-group-append'>
           <div className='input-group-text'>
-            <img src={tokenLogo} height='32' alt='' />
+            <img style={{ borderRadius: '50px' }} src={tokenLogo} height='32' alt='' />
             &nbsp; JOT
           </div>
         </div>

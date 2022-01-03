@@ -18,21 +18,13 @@ function SellForm() {
           <b>Input</b>
         </label>
         <span className='float-right text-muted'>
-          Balance: {window.web3.utils.fromWei(this.props.tokenBalance, 'Ether')}
+          Balance:
+          {/* {window.web3.utils.fromWei(this.props.tokenBalance, 'Ether')} */}
         </span>
       </div>
       <div className='input-group mb-4'>
         <input
           type='text'
-          onChange={(event) => {
-            const tokenAmount = this.input.value.toString();
-            this.setState({
-              output: tokenAmount / 100,
-            });
-          }}
-          ref={(input) => {
-            this.input = input;
-          }}
           className='form-control form-control-lg'
           placeholder='0'
           required
@@ -49,7 +41,8 @@ function SellForm() {
           <b>Output</b>
         </label>
         <span className='float-right text-muted'>
-          Balance: {window.web3.utils.fromWei(this.props.ethBalance, 'Ether')}
+          Balance:
+          {/* {window.web3.utils.fromWei(this.props.ethBalance, 'Ether')} */}
         </span>
       </div>
       <div className='input-group mb-2'>
@@ -57,7 +50,6 @@ function SellForm() {
           type='text'
           className='form-control form-control-lg'
           placeholder='0'
-          value={this.state.output}
           disabled
         />
         <div className='input-group-append'>
