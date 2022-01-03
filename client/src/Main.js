@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import BuyForm from './BuyForm';
 import SellForm from './SellForm';
 
-function Main({ buyToken, ethBalance, tokenBalance, account, loading }) {
+function Main({ buyToken, ethBalance, tokenBalance, account, loading, sellToken }) {
   const [form, setForm] = useState('buy');
 
   if (loading) {
@@ -43,7 +43,11 @@ function Main({ buyToken, ethBalance, tokenBalance, account, loading }) {
                 buyToken={buyToken}
               />
             ) : (
-              <SellForm ethBalance={ethBalance} tokenBalance={tokenBalance} />
+              <SellForm
+                ethBalance={ethBalance}
+                tokenBalance={tokenBalance}
+                sellToken={sellToken}
+              />
             )}
           </div>
         </div>

@@ -2,17 +2,22 @@ import React, { useState } from 'react';
 import tokenLogo from './assets/token-logo.png';
 import ethLogo from './assets/eth-logo.png';
 
-function SellForm({ ethBalance, tokenBalance }) {
+function SellForm({ ethBalance, tokenBalance, sellToken }) {
   const [tokenAmount, setTokenAmount] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    let tokenAmountInWei = e.target.sell.value;
+    tokenAmountInWei = window.web3.utils.toWei(tokenAmountInWei.toString(), 'Ether');
+
+    sellToken(tokenAmountInWei);
+  };
   return (
     <form
       className='mb-3'
       onSubmit={(e) => {
-        e.preventDefault();
-
-        let tokenAmountInWei = window.web3.utils.toWei(tokenAmount.toString(), 'Ether');
-        console.log(tokenAmountInWei);
-        // sellTokens(etherAmount);
+        handleSubmit(e);
       }}>
       <div>
         <label className='float-left'>
@@ -26,6 +31,7 @@ function SellForm({ ethBalance, tokenBalance }) {
           className='form-control form-control-lg'
           placeholder='0'
           required
+          name='sell'
           onChange={(e) => {
             const tokenAmount = e.target.value;
             setTokenAmount(tokenAmount / 100);

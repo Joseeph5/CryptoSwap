@@ -72,13 +72,27 @@ function App() {
       .buyToken()
       .send({ value: etherAmount, from: account });
     setLoading(false);
-    console.log(receipt);
-
-    setLoading(false);
 
     let tokenBalance = await token.methods.balanceOf(account).call();
     tokenBalance = web3.utils.fromWei(tokenBalance, 'ether');
     setTokenBalance(tokenBalance);
+
+    setLoading(false);
+  };
+
+  const sellToken = async (tokenAmount) => {
+    setLoading(true);
+    const approve = await token.methods
+      .approve(swap._address, tokenAmount)
+      .send({ from: account });
+    const receipt = await swap.methods.sellToken(tokenAmount).send({ from: account });
+
+    let tokenBalance = await token.methods.balanceOf(account).call();
+    tokenBalance = web3.utils.fromWei(tokenBalance, 'ether');
+    setTokenBalance(tokenBalance);
+    console.log(tokenBalance);
+
+    setLoading(false);
   };
   useEffect(() => {
     loadBlockchainData();
@@ -101,6 +115,7 @@ function App() {
               account={account}
               loading={loading}
               buyToken={buyToken}
+              sellToken={sellToken}
             />
           </main>
         </div>
