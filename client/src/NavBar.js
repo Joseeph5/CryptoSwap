@@ -1,5 +1,5 @@
 import React from 'react';
-// import Identicon from 'identicon.js';
+import Identicon from 'identicon.js';
 
 function NavBar({ account }) {
   return (
@@ -9,10 +9,12 @@ function NavBar({ account }) {
       <ul className='navbar-nav px-3'>
         <li className='nav-item text-nowrap d-none d-sm-none d-sm-block'>
           <small className='text-secondary'>
-            <span id='account'>{account}</span>
+            <span style={{ fontSize: '18px' }} id='account'>
+              {account}
+            </span>
           </small>
 
-          {/* {account ? (
+          {account ? (
             <img
               className='ml-2'
               width='30'
@@ -22,7 +24,7 @@ function NavBar({ account }) {
             />
           ) : (
             <span></span>
-          )} */}
+          )}
         </li>
       </ul>
     </nav>

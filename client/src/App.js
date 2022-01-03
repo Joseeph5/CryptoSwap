@@ -13,13 +13,19 @@ function App() {
   const [tokenBalance, setTokenBalance] = useState('');
   const [token, setToken] = useState(null);
   const [swap, setSwap] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState(true);
+  const [chainId, setChainId] = useState('');
 
   let web3 = new Web3(Web3.givenProvider || 'http://localhost:7545');
   window.web3 = web3;
 
   window.ethereum.on('accountsChanged', function (accounts) {
     setAccount(accounts[0]);
+  });
+
+  window.ethereum.on('chainChanged', (chainId) => {
+    setChainId(chainId);
   });
 
   const loadBlockchainData = async () => {
@@ -36,8 +42,9 @@ function App() {
     const networkId = await web3.eth.net.getId();
     const tokenData = Token.networks[networkId];
     if (!tokenData) {
+      setStatus(false);
       window.alert(
-        'Token contract not deployed to this network.\nPlease choose Rinkeby or Ganache test network.'
+        'The contract is not deployed to this network.\nPlease connect to Ganache test network.'
       );
       return;
     }
@@ -55,17 +62,23 @@ function App() {
     const swapData = Swap.networks[networkId];
     if (!swapData) {
       window.alert(
-        'Swap contract not deployed to this network.\nPlease choose Rinkeby or Ganache test network.'
+        'The contract is not deployed to this network.\nPlease connect to Ganache test network.'
       );
       return;
     }
     const swap = new web3.eth.Contract(swapABI, swapData.address);
     setSwap(swap);
 
-    setLoading(false);
+    setStatus(true);
   };
 
   const buyToken = async (etherAmount) => {
+    if (status === false) {
+      window.alert(
+        'The contract is not deployed to this network.\nPlease connect to Ganache test network.'
+      );
+      return;
+    }
     setLoading(true);
 
     const receipt = await swap.methods
@@ -81,6 +94,12 @@ function App() {
   };
 
   const sellToken = async (tokenAmount) => {
+    if (status === false) {
+      window.alert(
+        'The contract is not deployed to this network.\nPlease connect to Ganache test network.'
+      );
+      return;
+    }
     setLoading(true);
     const approve = await token.methods
       .approve(swap._address, tokenAmount)
@@ -97,7 +116,7 @@ function App() {
   useEffect(() => {
     loadBlockchainData();
     // eslint-disable-next-line
-  }, [account, tokenBalance]);
+  }, [account, tokenBalance, chainId]);
 
   return (
     <div>
