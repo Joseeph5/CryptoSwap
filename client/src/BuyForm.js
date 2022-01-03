@@ -4,14 +4,18 @@ import ethLogo from './assets/eth-logo.png';
 
 function BuyForm({ ethBalance, tokenBalance, buyToken }) {
   const [etherAmount, setEtherAmount] = useState('');
+
+  const hundleSubmit = (e) => {
+    e.preventDefault();
+    let etherAmountInWei = e.target.buy.value;
+    etherAmountInWei = window.web3.utils.toWei(etherAmountInWei.toString(), 'Ether');
+    buyToken(etherAmountInWei);
+  };
   return (
     <form
       className='mb-3'
-      onSubmit={(event) => {
-        event.preventDefault();
-
-        let etherAmountInWei = window.web3.utils.toWei(etherAmount.toString(), 'Ether');
-        buyToken(etherAmountInWei);
+      onSubmit={(e) => {
+        hundleSubmit(e);
       }}>
       <div>
         <label className='float-left'>
@@ -28,6 +32,7 @@ function BuyForm({ ethBalance, tokenBalance, buyToken }) {
           }}
           className='form-control form-control-lg'
           placeholder='0'
+          name='buy'
           required
         />
         <div className='input-group-append'>

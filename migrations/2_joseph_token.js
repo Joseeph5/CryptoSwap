@@ -11,5 +11,5 @@ module.exports = async (deployer) => {
   const swap = await JosephSwap.deployed();
 
   // Transfer all tokens to JosephSwap (1 million)
-  // await token.transfer(swap.address, '1000000');
+  await token.transfer(swap.address, '1000000000000000000000000');
 };

@@ -18,6 +18,10 @@ function App() {
   let web3 = new Web3(Web3.givenProvider || 'http://localhost:7545');
   window.web3 = web3;
 
+  window.ethereum.on('accountsChanged', function (accounts) {
+    setAccount(accounts[0]);
+  });
+
   const loadBlockchainData = async () => {
     // load Accounts
     const accounts = await web3.eth.requestAccounts();
@@ -62,14 +66,24 @@ function App() {
   };
 
   const buyToken = async (etherAmount) => {
-    console.log(etherAmount);
-    console.log(account);
-    // swap.eth.methods.buyToken().send({ value: etherAmount, from: account});
+    setLoading(true);
+
+    const receipt = await swap.methods
+      .buyToken()
+      .send({ value: etherAmount, from: account });
+    setLoading(false);
+    console.log(receipt);
+
+    setLoading(false);
+
+    let tokenBalance = await token.methods.balanceOf(account).call();
+    tokenBalance = web3.utils.fromWei(tokenBalance, 'ether');
+    setTokenBalance(tokenBalance);
   };
   useEffect(() => {
     loadBlockchainData();
     // eslint-disable-next-line
-  }, []);
+  }, [account, tokenBalance]);
 
   return (
     <div>
