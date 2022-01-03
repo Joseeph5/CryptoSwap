@@ -40,17 +40,24 @@ contract('JosephSwap', (accounts) => {
 
     it('sell tokens to JosephSwap for a fixed price 🎉', async () => {
       // seller must approve tokens before the sale process
-      await token.approve(swap.address, web3.utils.toWei('50', 'Ether'), {
+      await token.approve(swap.address, web3.utils.toWei('100', 'Ether'), {
         from: accounts[1],
       });
       // seller sells tokens
-      const result = await swap.sellToken(web3.utils.toWei('50', 'Ether'), {
+      const result = await swap.sellToken(web3.utils.toWei('100', 'Ether'), {
         from: accounts[1],
       });
 
       // Check seller token balance after the sale process
       const sellerBalance = await token.balanceOf(accounts[1]);
-      assert.equal(sellerBalance.toString(), web3.utils.toWei('50', 'Ether'));
+      assert.equal(sellerBalance.toString(), web3.utils.toWei('0', 'Ether'));
+
+      // check JosephSawp balance after the sale process
+      const swapBalance = await token.balanceOf(swap.address);
+      assert.equal(swapBalance.toString(), web3.utils.toWei('1000000', 'Ether'));
+
+      const ethSwapBalance = await web3.eth.getBalance(swap.address);
+      assert.equal(ethSwapBalance.toString(), web3.utils.toWei('0', 'Ether'));
     });
   });
 });
