@@ -39,8 +39,13 @@ function SellForm({ ethBalance, tokenBalance, sellToken }) {
         />
         <div className='input-group-append'>
           <div className='input-group-text'>
-            <img src={tokenLogo} height='32' alt='' />
-            &nbsp; DApp
+            <img
+              src={tokenLogo}
+              height='32'
+              alt=''
+              style={{ borderRadius: '50px', backgroundColor: '#2B354E', padding: '3px' }}
+            />
+            &nbsp; JOT
           </div>
         </div>
       </div>
@@ -61,7 +66,7 @@ function SellForm({ ethBalance, tokenBalance, sellToken }) {
         <div className='input-group-append'>
           <div className='input-group-text'>
             <img src={ethLogo} height='32' alt='' />
-            &nbsp;&nbsp;&nbsp; ETH
+            &nbsp; ETH
           </div>
         </div>
       </div>

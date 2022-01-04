@@ -38,7 +38,7 @@ function BuyForm({ ethBalance, tokenBalance, buyToken }) {
         <div className='input-group-append'>
           <div className='input-group-text'>
             <img src={ethLogo} height='32' alt='' />
-            &nbsp;&nbsp;&nbsp; ETH
+            &nbsp;ETH
           </div>
         </div>
       </div>
