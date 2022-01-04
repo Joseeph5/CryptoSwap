@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Web3 from 'web3';
 
 import Main from './Main';
@@ -119,27 +120,29 @@ function App() {
   }, [account, tokenBalance, chainId]);
 
   return (
-    <div>
-      <NavBar account={account} />
-      <div className='container-fluid mt-5'>
-        <div className='row'>
-          <main
-            role='main'
-            className='col-lg-12 ml-auto mr-auto'
-            style={{ maxWidth: '600px' }}>
-            <Main
-              token={token}
-              ethBalance={ethBalance}
-              tokenBalance={tokenBalance}
-              account={account}
-              loading={loading}
-              buyToken={buyToken}
-              sellToken={sellToken}
-            />
-          </main>
+    <Router>
+      <Fragment>
+        <NavBar account={account} />
+        <div className='container-fluid mt-5'>
+          <div className='row'>
+            <main
+              role='main'
+              className='col-lg-12 ml-auto mr-auto'
+              style={{ maxWidth: '600px' }}>
+              <Main
+                token={token}
+                ethBalance={ethBalance}
+                tokenBalance={tokenBalance}
+                account={account}
+                loading={loading}
+                buyToken={buyToken}
+                sellToken={sellToken}
+              />
+            </main>
+          </div>
         </div>
-      </div>
-    </div>
+      </Fragment>
+    </Router>
   );
 }
 
