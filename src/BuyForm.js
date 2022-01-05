@@ -8,7 +8,7 @@ function BuyForm({ ethBalance, tokenBalance, buyToken }) {
   const hundleSubmit = (e) => {
     e.preventDefault();
     let etherAmountInWei = e.target.buy.value;
-    etherAmountInWei = window.web3.utils.toWei(etherAmountInWei.toString(), 'Ether');
+    etherAmountInWei = window.web3.utils.toWei(etherAmountInWei, 'Ether');
     buyToken(etherAmountInWei);
   };
   return (
