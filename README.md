@@ -2,7 +2,9 @@
 
 ## This project is under development.
 
-<img src="./public/5.png" alt="CryptoSwap"/>
+<a href="https://joseph-cryptoswap.netlify.app/" target="_blank" rel="noopener noreferrer">
+    <img src="./public/5.png" alt="CryptoSwap"/>
+</a>
 
 ### Goal
 
@@ -24,7 +26,7 @@ For the past few months I have been learning and working with Solidity, so this 
 
 ## Feedback
 
-Like I mentioned earlier this project is under development, if you find and see some issue please open one issues or if you need/want a feature you can also make a request for said feature :)
+Like I mentioned earlier this project is under development, if you find and see some issues please open one issue or if you need/want a feature you can also make a request for said feature :)
 
 ## Running app locally
 
