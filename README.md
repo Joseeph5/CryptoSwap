@@ -26,10 +26,10 @@ like mentioned earlier this project is under development, if you find and see so
 
 ## Running app locally
 1. Open a terminal and clone the repo using the following command: `git clone`
-2. Install the dependencies using the following command:`npm i`
+2. Install the dependencies using the following command: `npm i`
 3. open Ganache
 4. Go into a subdirectory "Truffle" then run the following command: `truffle migrate --compile--all --reset`
-5. Go back to the root directory "cd .." and run the following command:`npm start
+5. Go back to the root directory "cd .." and run the following command: `npm start`
 
 
 
