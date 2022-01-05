@@ -24,6 +24,13 @@ For the past few months I have been learning and working with Solidity, so this 
 
 like mentioned earlier this project is under development, if you find and see some issue please open one issue or if you need/want a feature you can also make a request for said feature :)
 
+## Running app locally
+1. Open a terminal and clone the repo using the following command: `git clone`
+2. Install the dependencies using the following command:`npm i`
+3. open Ganache
+4. Go into a subdirectory "Truffle" then run the following command: `truffle migrate --compile--all --reset`
+5. Go back to the root directory "cd .." and run the following command:`npm start
+
 
 
 
