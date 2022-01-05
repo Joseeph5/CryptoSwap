@@ -53,7 +53,6 @@ function App() {
     // console.log('Token: ', token);
     setToken(token);
 
-    // console.log(account);
     let tokenBalance = await token.methods.balanceOf(accounts[0]).call();
     tokenBalance = web3.utils.fromWei(tokenBalance, 'ether');
     setTokenBalance(tokenBalance);
@@ -80,12 +79,20 @@ function App() {
       );
       return;
     }
+    // console.log(swap);
+    if (!swap) {
+      window.alert('Please deploy the contract to Ganache test network');
+      return;
+    }
     setLoading(true);
 
-    const receipt = await swap.methods
-      .buyToken()
-      .send({ value: etherAmount, from: account });
-    setLoading(false);
+    try {
+      const receipt = await swap.methods
+        .buyToken()
+        .send({ value: etherAmount, from: account });
+    } catch (error) {
+      console.log('EROOR: ', error);
+    }
 
     let tokenBalance = await token.methods.balanceOf(account).call();
     tokenBalance = web3.utils.fromWei(tokenBalance, 'ether');
@@ -101,16 +108,24 @@ function App() {
       );
       return;
     }
+    if (!swap) {
+      window.alert('Please deploy the contract to Ganache test network');
+      return;
+    }
     setLoading(true);
-    const approve = await token.methods
-      .approve(swap._address, tokenAmount)
-      .send({ from: account });
-    const receipt = await swap.methods.sellToken(tokenAmount).send({ from: account });
+
+    try {
+      const approve = await token.methods
+        .approve(swap._address, tokenAmount)
+        .send({ from: account });
+      const receipt = await swap.methods.sellToken(tokenAmount).send({ from: account });
+    } catch (error) {
+      console.log('EROOR: ', error);
+    }
 
     let tokenBalance = await token.methods.balanceOf(account).call();
     tokenBalance = web3.utils.fromWei(tokenBalance, 'ether');
     setTokenBalance(tokenBalance);
-    console.log(tokenBalance);
 
     setLoading(false);
   };
