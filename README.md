@@ -4,7 +4,7 @@
 
 <img src="./public/55.png" alt="CryptoSwap"/>
 
-### About
+### Goal
 To create a functional crypto exchange app, using up to date technologies and best practices in the field.
 
 
