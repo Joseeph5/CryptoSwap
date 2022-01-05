@@ -22,7 +22,7 @@ For the past few months I have been learning and working with Solidity, so this 
 
 ## Feedback
 
-like mentioned earlier this project is under development, if you find and see some issue please open one issue or if you need/want a feature you can also make a request for said feature :)
+Like I mentioned earlier this project is under development, if you find and see some issue please open one issues or if you need/want a feature you can also make a request for said feature :)
 
 ## Running app locally
 1. Open a terminal and clone the repo using the following command: `git clone`
