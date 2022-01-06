@@ -8,7 +8,7 @@
 
 ### Goal
 
-To create a functional crypto exchange app, using up to date technologies and best practices in the field.
+To create a functional crypto exchanger app, using up to date technologies and best practices in the field.
 
 ### Features
 
@@ -17,7 +17,7 @@ To create a functional crypto exchange app, using up to date technologies and be
 
 ### Built using
 
-For the past few months I have been learning and working with Solidity, so this is what I am using to build this app.
+For the last few months I have been learning and working on Solidity, so this is what I am using to build this app.
 
 - **ReactJS and Bootstrap**: Front-end
 - **Solidity**: Back-end(Smart Contracts)
@@ -26,7 +26,7 @@ For the past few months I have been learning and working with Solidity, so this 
 
 ## Feedback
 
-Like I mentioned earlier this project is under development, if you find and see some issues please open one issue or if you need/want a feature you can also make a request for said feature :)
+Like I just mentioned this project is under development, if you find or see some issues please open one issue and if you need/want a feature you can also make a request for said feature :)
 
 ## Running app locally
 
