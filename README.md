@@ -8,7 +8,7 @@
 
 ### Goal
 
-To create a functional crypto exchanger app, using up to date technologies and best practices in the field.
+To create a functional crypto exchange app, using up to date technologies and best practices in the field.
 
 ### Features
 
