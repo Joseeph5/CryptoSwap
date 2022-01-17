@@ -21,13 +21,19 @@ function App() {
   let web3 = new Web3(Web3.givenProvider || 'http://localhost:7545');
   window.web3 = web3;
 
-  window.ethereum.on('accountsChanged', function (accounts) {
-    setAccount(accounts[0]);
-  });
+  // console.log('window.ethereum', window.ethereum);
 
-  window.ethereum.on('chainChanged', (chainId) => {
-    setChainId(chainId);
-  });
+  if (window.ethereum) {
+    window.ethereum.on('accountsChanged', function (accounts) {
+      if (accounts) {
+        setAccount(accounts[0]);
+      }
+    });
+
+    window.ethereum.on('chainChanged', (chainId) => {
+      setChainId(chainId);
+    });
+  }
 
   const loadBlockchainData = async () => {
     // load Accounts
