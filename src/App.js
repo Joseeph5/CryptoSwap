@@ -40,23 +40,27 @@ function App() {
     const accounts = await web3.eth.requestAccounts();
     setAccount(accounts[0]);
 
+    // load Balance
     let ethBalance = await web3.eth.getBalance(accounts[0]);
     ethBalance = web3.utils.fromWei(ethBalance, 'ether');
     setEthBalance(ethBalance);
 
-    // load Token
-    const tokenABI = Token.abi;
+    // check network
     const networkId = await web3.eth.net.getId();
-    const tokenData = Token.networks[networkId];
-    if (!tokenData) {
+    if (networkId !== 3) {
       setStatus(false);
       window.alert(
-        'The contract is not deployed to this network.\nPlease connect to Ganache test network.'
+        'The contract is not deployed to this network.\nPlease connect to Ropston test network.'
       );
       return;
     }
-    const token = new web3.eth.Contract(tokenABI, tokenData.address);
-    // console.log('Token: ', token);
+    // load Token
+    const tokenABI = Token.abi;
+
+    const token = new web3.eth.Contract(
+      tokenABI,
+      '0x96Ae6504d6110dBc1c9b68AdE5EBf9Ec89da4644'
+    );
     setToken(token);
 
     let tokenBalance = await token.methods.balanceOf(accounts[0]).call();
@@ -65,29 +69,29 @@ function App() {
 
     // load swap
     const swapABI = Swap.abi;
-    const swapData = Swap.networks[networkId];
-    if (!swapData) {
-      window.alert(
-        'The contract is not deployed to this network.\nPlease connect to Ganache test network.'
-      );
-      return;
-    }
-    const swap = new web3.eth.Contract(swapABI, swapData.address);
+
+    const swap = new web3.eth.Contract(
+      swapABI,
+      '0xcA9F4c046fbec2647F6359D8A7CF8B59C1aB6b62'
+    );
+    // console.log('swap: ', swap._address);
     setSwap(swap);
 
-    setStatus(true);
+    if (token && swap) {
+      setStatus(true);
+    }
   };
 
   const buyToken = async (etherAmount) => {
     if (status === false) {
       window.alert(
-        'The contract is not deployed to this network.\nPlease connect to Ganache test network.'
+        'The contract is not deployed to this network.\nPlease connect to Ropston test network.'
       );
       return;
     }
     // console.log(swap);
     if (!swap) {
-      window.alert('Please deploy the contract to Ganache test network');
+      window.alert('Please deploy the contract to Ropston test network');
       return;
     }
     setLoading(true);
@@ -95,7 +99,7 @@ function App() {
     try {
       const receipt = await swap.methods
         .buyToken()
-        .send({ value: etherAmount, from: account });
+        .send({ value: etherAmount, from: account, gasLimit: 50000 });
     } catch (error) {
       console.log('EROOR: ', error);
     }
