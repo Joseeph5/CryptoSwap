@@ -99,7 +99,7 @@ function App() {
     try {
       const receipt = await swap.methods
         .buyToken()
-        .send({ value: etherAmount, from: account, gasLimit: 50000 });
+        .send({ value: etherAmount, from: account });
     } catch (error) {
       console.log('EROOR: ', error);
     }
