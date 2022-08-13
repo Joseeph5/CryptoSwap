@@ -15,7 +15,7 @@ function App() {
   const [token, setToken] = useState(null);
   const [swap, setSwap] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState(true);
+  const [status, setStatus] = useState(false);
   const [chainId, setChainId] = useState('');
 
   let web3 = new Web3(Web3.givenProvider || 'http://localhost:7545');
@@ -83,10 +83,9 @@ function App() {
   };
 
   const buyToken = async (etherAmount) => {
+    console.log('sssssssss');
     if (status === false) {
-      window.alert(
-        'The contract is not deployed to this network.\nPlease connect to Ropston test network.'
-      );
+      window.alert('No wallet detected.\nPlease connect to Metamask.');
       return;
     }
     // console.log(swap);
